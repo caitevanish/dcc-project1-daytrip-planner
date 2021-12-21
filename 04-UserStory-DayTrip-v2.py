@@ -57,18 +57,6 @@ def random_selector_main(list_name):
     print(f"Finally, let's go have some fun! Your evening's entertainment will be {result}")
     return (result)
 
-# def final_selector(selected_item):
-#   answer = input("Are you happy with this selection? Y/N: ")
-#   while answer != "Y":
-#     if answer == "Y":
-#       print('Great!')
-#       return 
-#     else:
-#       print("No problem! Let's give it another go...")
-#       # if selec
-#       random_selector_edit()
-
-
 # --------------------------------- finalizing plans
 
 def final_tripPlans(destination, transportation, restaurant, entertainment):
@@ -79,20 +67,35 @@ def final_tripPlans(destination, transportation, restaurant, entertainment):
     print(f'Wonderful! Have a great time, {user_name}, and thank YOU for using Gumpcations!')
     return
   else:
-    change_item()
+    change_item(selected_destination, selected_transportation, selected_restaurant, selected_entertainment)
 
 
 
-def change_item():
-  edit_item = input("If you want to change your destination, press '1'. For mode of transportation, type '2'. For restaurant, type '3'. For entertainment, type '4': ")
-  
-  if edit_item == "1":
-    destination = random_destination_edit(list_destinations)
-    return(destination)
+def change_item(finalDestination, finalTransportation, finalRestaurant, finalEntertainment):
+  edit_item = input("If you want to change your destination, press '1'. For mode of transportation, type '2'. For restaurant, type '3'. For entertainment, type '4'. If you are satisfied with your trip plans, type '5. ")
+  isSatisfied = False
+  while isSatisfied == False:
+    
+    if edit_item == "1":
+      finalDestination = random_destination_edit()
+      edit_item = input("If you want to change your destination, press '1'. For mode of transportation, type '2'. For restaurant, type '3'. For entertainment, type '4'. If you are satisfied with your trip plans, type '5. ")
+    
+    elif edit_item == "2":
+      finalTranportation = random_transport_edit()
+      edit_item = input("If you want to change your destination, press '1'. For mode of transportation, type '2'. For restaurant, type '3'. For entertainment, type '4'. If you are satisfied with your trip plans, type '5. ")
+    
+    elif edit_item == "3":
+      finalRestaurant = random_restaurant_edit()
+      edit_item = input("If you want to change your destination, press '1'. For mode of transportation, type '2'. For restaurant, type '3'. For entertainment, type '4'. If you are satisfied with your trip plans, type '5. ")
 
-  if edit_item == "2":
-    random_transport_edit(list_get_around)
-    return 
+    elif edit_item == "4":
+      finalEntertainment = random_entertainment_edit()
+      edit_item = input("If you want to change your destination, press '1'. For mode of transportation, type '2'. For restaurant, type '3'. For entertainment, type '4'. If you are satisfied with your trip plans, type '5. ")
+    
+    elif edit_item == "5":
+      isSatisfied = True
+      print(f"Thank you for confirming your trip, {user_name}. For your trip, you'll be going to {finalDestination}, you'll get around by {finalTranportation}, you'll be eating at {finalRestaurant}, and for fun you'll {finalEntertainment}. Groovy! Thank you for using Gumpcations!")
+
 
   # if edit_item == "3":
   #   random_selector_edit(list_restaurants)
@@ -102,8 +105,8 @@ def change_item():
   #   random_selector_edit(list_entertainment)
   #   return
   
-  else:
-    final_tripPlans()
+  #else:
+  # final_tripPlans()
 
 
 
@@ -118,36 +121,53 @@ def change_item():
 #     elif result == "N":
 #     random_selector_edit(list_destinations)
 
-def random_destination_edit(final_destination):
+def random_destination_edit():
   edit_destination = random.choice(list_destinations)
   result = input(f"Would you like to go to {edit_destination}? Y/N: ")
   while result != "Y":
-    random_destination_edit(list_destinations) 
-  if result == "Y":
-    edit_destination = final_destination
-    return(final_destination)
-  else:
-    return
+    if result == "Y":
+      return(edit_destination)
+    else:
+      edit_destination = random.choice(list_destinations)
+      result = input(f"Would you like to go to {edit_destination}? Y/N: ")
 
-def random_transport_edit(final_transport):
+def random_transport_edit():
   edit_transport = random.choice(list_get_around)
   result = input(f"Would you like to go to by {edit_transport}? Y/N: ")
   while result != "Y":
-    random_destination_edit(list_get_around) 
-  if result == "Y":
-    edit_transport = final_transport
-    return(final_transport)
+    if result == "Y":
+      return edit_transport 
+    else:
+      edit_transport = random.choice(list_get_around)
+      result = input(f"Would you like to go to by {edit_transport}? Y/N: ")
 
+def random_restaurant_edit():
+  edit_restaurant = random.choice(list_restaurants)
+  result = input(f"Would you like to eat at {edit_restaurant}? Y/N: ")
+  while result != "Y":
+    if result == "Y":
+      return edit_restaurant 
+    else:
+      edit_restaurant = random.choice(list_restaurants)
+      result = input(f"Would you like to eat at {edit_restaurant}? Y/N: ")
+
+def random_entertainment_edit():
+  edit_entertainment = random.choice(list_entertainment)
+  result = input(f"Would you like to eat at {edit_entertainment}? Y/N: ")
+  while result != "Y":
+    if result == "Y":
+      return edit_entertainment 
+    else:
+      edit_entertainment = random.choice(list_entertainment)
+      result = input(f"Would you like to eat at {edit_entertainment}? Y/N: ")
     
-    
+
 
 input_name = TripPlanner_Welcome()
 user_name = jenny_question(input_name)
 is_ready = begin_app()
 selected_destination = random_selector_main(list_destinations)
-# final_selector(selected_destination)
 selected_transportation = random_selector_main(list_get_around)
-# final_selector(selected_destination)
 selected_restaurant = random_selector_main(list_restaurants)
 selected_entertainment = random_selector_main(list_entertainment)
 final_tripPlans(selected_destination, selected_transportation, selected_restaurant, selected_entertainment)
